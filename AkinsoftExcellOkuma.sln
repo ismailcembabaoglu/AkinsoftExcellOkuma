@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{E18A2F16-C679-4929-9575-2298B15065D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{6686A8C5-4025-4E7D-B19A-9AA75B3C291B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{4D09B8CA-0173-4CFC-9CD7-20FDB7BD17CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkinsoftExcellOkuma.Domain", "Core\AkinsoftExcellOkuma.Domain\AkinsoftExcellOkuma.Domain.csproj", "{44D833DD-368A-4371-A06A-AC71BA3D1F0C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkinsoftExcellOkuma.Application", "Core\AkinsoftExcellOkuma.Application\AkinsoftExcellOkuma.Application.csproj", "{A407E8BB-3424-4151-8094-31363F220295}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkinsoftExcellOkuma.Infrastructure", "Infrastructure\AkinsoftExcellOkuma.Infrastructure\AkinsoftExcellOkuma.Infrastructure.csproj", "{A692D400-69A8-4B71-8DDB-AD55C3A36ABB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkinsoftExcellOkuma.Persistence", "Infrastructure\AkinsoftExcellOkuma.Persistence\AkinsoftExcellOkuma.Persistence.csproj", "{30419EA3-74C5-418C-B33F-B5836EEA08F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkinsoftExcellOkuma.Server", "Presentation\AkinsoftExcellOkuma\Server\AkinsoftExcellOkuma.Server.csproj", "{26D86BDE-716C-4058-BBB2-F1A6D6341F13}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkinsoftExcellOkuma.Client", "Presentation\AkinsoftExcellOkuma\Client\AkinsoftExcellOkuma.Client.csproj", "{CE7A48C5-EA78-49B2-A7CB-874A30D2CA4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkinsoftExcellOkuma.Shared", "Presentation\AkinsoftExcellOkuma\Shared\AkinsoftExcellOkuma.Shared.csproj", "{BCFFEFD6-5B2C-47E8-B4C5-C8CC6F59938A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "Presentation\test\test.csproj", "{E677A241-326C-4934-A683-A97CE4C975D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44D833DD-368A-4371-A06A-AC71BA3D1F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D833DD-368A-4371-A06A-AC71BA3D1F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D833DD-368A-4371-A06A-AC71BA3D1F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D833DD-368A-4371-A06A-AC71BA3D1F0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A407E8BB-3424-4151-8094-31363F220295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A407E8BB-3424-4151-8094-31363F220295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A407E8BB-3424-4151-8094-31363F220295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A407E8BB-3424-4151-8094-31363F220295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A692D400-69A8-4B71-8DDB-AD55C3A36ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A692D400-69A8-4B71-8DDB-AD55C3A36ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A692D400-69A8-4B71-8DDB-AD55C3A36ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A692D400-69A8-4B71-8DDB-AD55C3A36ABB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30419EA3-74C5-418C-B33F-B5836EEA08F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30419EA3-74C5-418C-B33F-B5836EEA08F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30419EA3-74C5-418C-B33F-B5836EEA08F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30419EA3-74C5-418C-B33F-B5836EEA08F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26D86BDE-716C-4058-BBB2-F1A6D6341F13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26D86BDE-716C-4058-BBB2-F1A6D6341F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26D86BDE-716C-4058-BBB2-F1A6D6341F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26D86BDE-716C-4058-BBB2-F1A6D6341F13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE7A48C5-EA78-49B2-A7CB-874A30D2CA4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE7A48C5-EA78-49B2-A7CB-874A30D2CA4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE7A48C5-EA78-49B2-A7CB-874A30D2CA4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE7A48C5-EA78-49B2-A7CB-874A30D2CA4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCFFEFD6-5B2C-47E8-B4C5-C8CC6F59938A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCFFEFD6-5B2C-47E8-B4C5-C8CC6F59938A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCFFEFD6-5B2C-47E8-B4C5-C8CC6F59938A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCFFEFD6-5B2C-47E8-B4C5-C8CC6F59938A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E677A241-326C-4934-A683-A97CE4C975D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E677A241-326C-4934-A683-A97CE4C975D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E677A241-326C-4934-A683-A97CE4C975D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E677A241-326C-4934-A683-A97CE4C975D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{44D833DD-368A-4371-A06A-AC71BA3D1F0C} = {E18A2F16-C679-4929-9575-2298B15065D6}
+		{A407E8BB-3424-4151-8094-31363F220295} = {E18A2F16-C679-4929-9575-2298B15065D6}
+		{A692D400-69A8-4B71-8DDB-AD55C3A36ABB} = {6686A8C5-4025-4E7D-B19A-9AA75B3C291B}
+		{30419EA3-74C5-418C-B33F-B5836EEA08F2} = {6686A8C5-4025-4E7D-B19A-9AA75B3C291B}
+		{26D86BDE-716C-4058-BBB2-F1A6D6341F13} = {4D09B8CA-0173-4CFC-9CD7-20FDB7BD17CE}
+		{CE7A48C5-EA78-49B2-A7CB-874A30D2CA4A} = {4D09B8CA-0173-4CFC-9CD7-20FDB7BD17CE}
+		{BCFFEFD6-5B2C-47E8-B4C5-C8CC6F59938A} = {4D09B8CA-0173-4CFC-9CD7-20FDB7BD17CE}
+		{E677A241-326C-4934-A683-A97CE4C975D0} = {4D09B8CA-0173-4CFC-9CD7-20FDB7BD17CE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {229AACA2-8633-4F91-96FA-266B16605558}
+	EndGlobalSection
+EndGlobal
