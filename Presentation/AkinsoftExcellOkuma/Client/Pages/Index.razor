@@ -327,15 +327,17 @@
             int gm = 0;
             int cl = 0;
             await upload.Upload();
-            hfTatil = await HttpClient.GetServiceResponseNullTokenAsync<List<TatilDTO>>("api/Puantaj/Tatils/" + DateTime.Now.Year.ToString() + "/" + dayIndex.AyKodu);
-            bayramTatil = await HttpClient.GetServiceResponseNullTokenAsync<List<TatilDTO>>("api/Puantaj/Cleander/" + DateTime.Now.Year.ToString() + "/" + dayIndex.AyKodu);
+         
             dayDTO = await HttpClient.PostGetServiceResponseNullTokenAsync<List<DayDTO>, DayIndexDTO>("api/Puantaj/Puantajs", dayIndex, true);
             foreach (var day in dayDTO)
             {
+               
               var  tarih = new DateTime(DateTime.Now.Year, day.AyKodu, 1);
               var totaldays=day.HS+  day.GT + day.CL + day.UL + day.UZ + day.RP + day.YL + day.GM;
                 if (totaldays <= tarih.AddMonths(1).AddDays(-1).Day)
                 {
+                    hfTatil = await HttpClient.GetServiceResponseNullTokenAsync<List<TatilDTO>>("api/Puantaj/Tatils/" + DateTime.Now.Year.ToString() + "/" + day.AyKodu);
+                    bayramTatil = await HttpClient.GetServiceResponseNullTokenAsync<List<TatilDTO>>("api/Puantaj/Cleander/" + DateTime.Now.Year.ToString() + "/" + day.AyKodu);
                     puantajCetveli = new();
                     long persBlKodu = await HttpClient.GetServiceResponseNullTokenAsync<long>("api/Personel/PersonelById/" + day.SicilNo);
                     puantajCetveli.Blperskodu = persBlKodu;
