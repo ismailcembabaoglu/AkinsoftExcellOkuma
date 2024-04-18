@@ -60,7 +60,7 @@ namespace AkinsoftExcellOkuma.Persistence.Services
                     DayDTO excellDTO = new DayDTO();
                    
                         excellDTO.SicilNo = worksheet.Cells[row, dayIndex.SicilNo]?.Value?.ToString();
-                         excellDTO.AyKodu = Convert.ToInt32( worksheet.Cells[row, dayIndex.AyKodu]?.Value);
+                         excellDTO.AyKodu = (short)Convert.ToInt32( worksheet.Cells[row, dayIndex.AyKodu]?.Value);
                         excellDTO.IsyeriKodu = worksheet.Cells[row, dayIndex.IsyeriKodu]?.Value?.ToString();
                        excellDTO.IsyeriAdi = worksheet.Cells[row, dayIndex.IsyeriAdi]?.Value?.ToString();
                     excellDTO.CL = Convert.ToInt32(worksheet.Cells[row, dayIndex.CL]?.Value);
@@ -72,15 +72,15 @@ namespace AkinsoftExcellOkuma.Persistence.Services
                     excellDTO.YL = Convert.ToInt32(worksheet.Cells[row, dayIndex.YL]?.Value);
                     excellDTO.GM = Convert.ToInt32(worksheet.Cells[row, dayIndex.GM]?.Value);
                     excellDTO.EksikGun = worksheet.Cells[row, dayIndex.EksikGun]?.Value?.ToString();
-                    excellDTO.ToplamPrimGun = Convert.ToInt32(worksheet.Cells[row, dayIndex.ToplamPrimGun]?.Value);
-                    excellDTO.ToplamUcretGun = Convert.ToInt32(worksheet.Cells[row, dayIndex.ToplamUcretGun]?.Value);
+                    excellDTO.ToplamPrimGun = ((short)Convert.ToInt32(worksheet.Cells[row, dayIndex.ToplamPrimGun]?.Value));
+                    excellDTO.ToplamUcretGun = ((short)Convert.ToInt32(worksheet.Cells[row, dayIndex.ToplamUcretGun]?.Value));
                     excellDTO.MESAI_HFICI_PNC = Convert.ToDouble(worksheet.Cells[row, dayIndex.MESAI_HFICI_PNC]?.Value);
                     excellDTO.MESAI_HFSN_PNC = Convert.ToDouble(worksheet.Cells[row, dayIndex.MESAI_HFSN_PNC]?.Value);
                     excellDTO.MESAI_BYRM_PNC = Convert.ToDouble(worksheet.Cells[row, dayIndex.MESAI_BYRM_PNC]?.Value);
                     excellDTO.MESAI_HFICI_GECE_PNC = Convert.ToDouble(worksheet.Cells[row, dayIndex.MESAI_HFICI_GECE_PNC]?.Value);
                     excellDTO.MESAI_HFSN_GECE_PNC = Convert.ToDouble(worksheet.Cells[row, dayIndex.MESAI_HFSN_GECE_PNC]?.Value);
                     excellDTO.MESAI_BYRM_GECE_PNC = Convert.ToDouble(worksheet.Cells[row, dayIndex.MESAI_BYRM_GECE_PNC]?.Value);
-                    excellDTO.TOPLAM_UZAKTAN_CALISMA = Convert.ToInt32(worksheet.Cells[row, dayIndex.TOPLAM_UZAKTAN_CALISMA]?.Value);
+                    excellDTO.TOPLAM_UZAKTAN_CALISMA = ((short)Convert.ToInt32(worksheet.Cells[row, dayIndex.TOPLAM_UZAKTAN_CALISMA]?.Value));
                     list.Add(excellDTO);
                 }
             }

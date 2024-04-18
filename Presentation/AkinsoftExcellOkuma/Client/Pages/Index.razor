@@ -2,14 +2,15 @@
 @inject NotificationService NotificationService
 @using AkinsoftExcellOkuma.Application.CustomExceptions
 @using AkinsoftExcellOkuma.Application.DTOs
+@using AkinsoftExcellOkuma.Application.DTOs.IKDTOs
 @using AkinsoftExcellOkuma.Client.Utils
 @using AkinsoftExcellOkuma.Domain.Enums
 @using Microsoft.AspNetCore.Components.Forms
 <div class="col-md-6 p-3">
-    <RadzenTextBox ></RadzenTextBox>
-    <RadzenUpload @ref="upload" Accept=".xlsx"  Auto="false" Multiple="false" Url="/api/Puantaj/GetPath" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})"
+    <RadzenTextBox></RadzenTextBox>
+    <RadzenUpload @ref="upload" Accept=".xlsx" Auto="false" Multiple="false" Url="/api/Puantaj/GetPath" ChooseText="Excell Seç" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})"
                   Change=@(args => OnProgressChanged(args)) class="w-100" />
-    
+
     <EditForm Model="@dayIndex" OnValidSubmit="up">
         <RadzenColumn Size="12" Style="width:%60" SizeMD="6">
             <RadzenStack>
@@ -21,7 +22,7 @@
                     <RadzenColumn Size="12" SizeMD="8">
                         <RadzenDropDown @bind-Value="dayIndex.SicilNo" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="SicilNo">
                         </RadzenDropDown>
-                 
+
                     </RadzenColumn>
                 </RadzenRow>
                 <RadzenRow AlignItems="AlignItems.Center">
@@ -255,11 +256,11 @@
 
                     </RadzenColumn>
                 </RadzenRow>
-                <RadzenButton ButtonType=ButtonType.Submit Text="Upload" class="d-block mt-4" />
+                <RadzenButton ButtonType=ButtonType.Submit Text="Yükle" class="d-block mt-4" />
             </RadzenStack>
 
         </RadzenColumn>
-     
+
     </EditForm>
 </div>
 @code {
@@ -267,12 +268,17 @@
     public HttpClient HttpClient { get; set; }
     List<EnumToName> ColumnTypes = new List<EnumToName>();
     RadzenUpload upload;
-    DayIndexDTO dayIndex;
+    DayIndexDTO dayIndex = new DayIndexDTO();
+    PersonelDTO personel = new PersonelDTO();
+    List<TatilDTO> hfTatil = new List<TatilDTO>();
+    List<TatilDTO> bayramTatil = new List<TatilDTO>();
+    List<DayDTO> dayDTO = new List<DayDTO>();
+    PuantajCetveliDTO puantajCetveli = new PuantajCetveliDTO();
+    List<PuantajCetveliDTO> puantajCetveliDTOs = new List<PuantajCetveliDTO>();
 
     protected override Task OnInitializedAsync()
     {
 
-        dayIndex = new DayIndexDTO();
         var ss = EnumHelper.GetEnumDescriptionAndValues<ColumnType>();
         foreach (var item in ss)
         {
@@ -314,21 +320,130 @@
     {
         try
         {
-            var s = dayIndex;
+            int rp = 0;
+            int ul = 0;
+            int uz = 0;
+            int yl = 0;
+            int gm = 0;
+            int cl = 0;
             await upload.Upload();
+            hfTatil = await HttpClient.GetServiceResponseNullTokenAsync<List<TatilDTO>>("api/Puantaj/Tatils/" + DateTime.Now.Year.ToString() + "/" + dayIndex.AyKodu);
+            bayramTatil = await HttpClient.GetServiceResponseNullTokenAsync<List<TatilDTO>>("api/Puantaj/Cleander/" + DateTime.Now.Year.ToString() + "/" + dayIndex.AyKodu);
+            dayDTO = await HttpClient.PostGetServiceResponseNullTokenAsync<List<DayDTO>, DayIndexDTO>("api/Puantaj/Puantajs", dayIndex, true);
+            foreach (var day in dayDTO)
+            {
+              var  tarih = new DateTime(DateTime.Now.Year, day.AyKodu, 1);
+              var totaldays=day.HS+  day.GT + day.CL + day.UL + day.UZ + day.RP + day.YL + day.GM;
+                if (totaldays <= tarih.AddMonths(1).AddDays(-1).Day)
+                {
+                    puantajCetveli = new();
+                    long persBlKodu = await HttpClient.GetServiceResponseNullTokenAsync<long>("api/Personel/PersonelById/" + day.SicilNo);
+                    puantajCetveli.Blperskodu = persBlKodu;
+                    puantajCetveli.Aykodu = day.AyKodu;
+                    puantajCetveli.IsyeriKodu = day.IsyeriKodu;
+                    puantajCetveli.IsyeriAdi = day.IsyeriAdi;
+                    puantajCetveli.EksikGun = day.EksikGun;
+                    puantajCetveli.ToplamUcretgunu = day.ToplamUcretGun;
+                    puantajCetveli.MesaiHficiPnc = day.MESAI_HFICI_PNC;
+                    puantajCetveli.MesaiHfsnPnc = day.MESAI_HFSN_PNC;
+                    puantajCetveli.MesaiByrmPnc = day.MESAI_BYRM_PNC;
+                    puantajCetveli.MesaiHficiGecePnc = day.MESAI_HFICI_GECE_PNC;
+                    puantajCetveli.MesaiHfsnGecePnc = day.MESAI_HFSN_GECE_PNC;
+                    puantajCetveli.MesaiByrmGecePnc = day.MESAI_BYRM_GECE_PNC;
+                    puantajCetveli.ToplamUzaktanCalisma = day.TOPLAM_UZAKTAN_CALISMA;
+                    rp = 0;
+                    ul = 0;
+                    uz = 0;
+                    yl = 0;
+                    gm = 0;
+                    cl = 0;
+                    foreach (var item in hfTatil)
+                    {
+                        if (item.Gun >= 1 && item.Gun <= 31)
+                        {
+                            var gunPropertyName = "Gun" + item.Gun.ToString("D2"); // D2 ile 2 haneli sayıya dönüştürme sağlanıyor.
+                            var gunProperty = typeof(PuantajCetveliDTO).GetProperty(gunPropertyName);
+                            if (gunProperty != null)
+                            {
+                                gunProperty.SetValue(puantajCetveli, CetvelType.Hs);
+                            }
+                        }
+
+                    }
+                    foreach (var item in bayramTatil)
+                    {
+                        if (item.Gun >= 1 && item.Gun <= 31)
+                        {
+                            var gunPropertyName = "Gun" + item.Gun.ToString("D2"); // D2 ile 2 haneli sayıya dönüştürme sağlanıyor.
+                            var gunProperty = typeof(PuantajCetveliDTO).GetProperty(gunPropertyName);
+                            if (gunProperty != null)
+                            {
+                                gunProperty.SetValue(puantajCetveli, CetvelType.Gt);
+                            }
+                        }
+                    }
+                    for (int i = 1; i <= 31; i++)
+                    {
+
+                        var gunPropertyName = "Gun" + i.ToString("D2"); // D2 ile 2 haneli sayıya dönüştürme sağlanıyor.
+                        var gunProperty = typeof(PuantajCetveliDTO).GetProperty(gunPropertyName);
+                        if (gunProperty != null)
+                        {
+
+                            if (gunProperty.GetValue(puantajCetveli) == null && rp < day.RP)
+                            {
+                                gunProperty.SetValue(puantajCetveli, CetvelType.Rp);
+                                rp++;
+                            }
+                            if (gunProperty.GetValue(puantajCetveli) == null && ul < day.UL)
+                            {
+                                gunProperty.SetValue(puantajCetveli, CetvelType.Ul);
+                                ul++;
+                            }
+                            if (gunProperty.GetValue(puantajCetveli) == null && uz < day.UZ)
+                            {
+                                gunProperty.SetValue(puantajCetveli, CetvelType.Uz);
+                                uz++;
+                            }
+                            if (gunProperty.GetValue(puantajCetveli) == null && yl < day.YL)
+                            {
+                                gunProperty.SetValue(puantajCetveli, CetvelType.Yl);
+                                yl++;
+                            }
+                            if (gunProperty.GetValue(puantajCetveli) == null && gm < day.GM)
+                            {
+                                gunProperty.SetValue(puantajCetveli, CetvelType.Gm);
+                                gm++;
+                            }
+                            if (gunProperty.GetValue(puantajCetveli) == null && cl < day.CL)
+                            {
+                                gunProperty.SetValue(puantajCetveli, CetvelType.Cl);
+                                cl++;
+                            }
+                        }
+
+                    }
+                }
+              
+
+                puantajCetveliDTOs.Add(puantajCetveli);
+                puantajCetveli = await HttpClient.PostGetServiceResponseNullTokenAsync<PuantajCetveliDTO, PuantajCetveliDTO>("api/PuantajCetveli/Create", puantajCetveli, true);
+
+            }
+            var ss = puantajCetveliDTOs.ToList();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Başarılı", Detail = "işlem başarılı", Duration = 4000, CloseOnClick = true });
         }
         catch (ApiException ex)
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Başarısız Api Exception", Detail = $"{ex.Message}", Duration = 10000,CloseOnClick=true });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Başarısız Api Exception", Detail = $"{ex.Message}", Duration = 10000, CloseOnClick = true });
         }
         catch (Exception ex)
         {
 
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Başarısız Exception", Detail = $"{ex.Message}", Duration = 10000, CloseOnClick = true });
         }
-       
-        
+
+
     }
 
 }
