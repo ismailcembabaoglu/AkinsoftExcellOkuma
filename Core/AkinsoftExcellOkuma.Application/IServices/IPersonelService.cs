@@ -9,7 +9,7 @@ namespace AkinsoftExcellOkuma.Application.IServices
 {
     public interface IPersonelService
     {
-        public Task<List<PersonelDTO>> GetPersonels();
+        public Task<long> GetPersonelById(string Kodu);
         public Task<PersonelDTO> GetPersonel();
     }
 }

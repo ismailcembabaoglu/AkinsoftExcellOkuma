@@ -19,5 +19,9 @@
     <ProjectReference Include="..\Shared\AkinsoftExcellOkuma.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="uploads\" />
+  </ItemGroup>
+
 
 </Project>

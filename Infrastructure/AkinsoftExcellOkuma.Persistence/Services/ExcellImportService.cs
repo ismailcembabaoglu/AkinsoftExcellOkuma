@@ -44,10 +44,10 @@ namespace AkinsoftExcellOkuma.Persistence.Services
             return tatils;
         }
 
-        public async  Task<List<DayDTO>> GetExcellPuantajs(string PathName,DayIndexDTO dayIndex)
+        public async  Task<List<DayDTO>> GetExcellPuantajs(DayIndexDTO dayIndex)
         {
             List<DayDTO> list = new List<DayDTO>();
-            string filePath = PathName;
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(),$"uploads/{dayIndex.PathName}");
             FileInfo fileInfo = new FileInfo(filePath);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))

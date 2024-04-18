@@ -8,6 +8,7 @@ namespace AkinsoftExcellOkuma.Application.DTOs
 {
     public class DayIndexDTO
     {
+        public string PathName { get; set; }
         public int SicilNo { get; set; }
         public int AyKodu { get; set; }
         public int IsyeriKodu { get; set; }

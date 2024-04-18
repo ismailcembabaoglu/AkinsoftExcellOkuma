@@ -27,21 +27,14 @@ namespace AkinsoftExcellOkuma.Persistence.Services
 
         public async Task<PersonelDTO> GetPersonel()
         {
-            var dbCarLocation = await context.Personels.ProjectTo<PersonelDTO>(mapper.ConfigurationProvider).Select(c=>new PersonelDTO
-            {
-              Adi=c.Adi
-            }).FirstOrDefaultAsync();
+            var dbCarLocation = await context.Personels.ProjectTo<PersonelDTO>(mapper.ConfigurationProvider).FirstOrDefaultAsync();
             return dbCarLocation;
         }
 
-        public async Task<List<PersonelDTO>> GetPersonels()
+        public async Task<long> GetPersonelById(string Kodu)
         {
-            var dbCarLocation = await context.Personels.ProjectTo<PersonelDTO>(mapper.ConfigurationProvider).Select(c=>new PersonelDTO
-            {
-                Adi=c.Adi,
-                Kodu=c.Kodu
-            }).ToListAsync() ;
-            return dbCarLocation;
+            var dbCarLocation = await context.Personels.Where(c=>c.Kodu==Kodu).FirstOrDefaultAsync() ;
+            return dbCarLocation.Blkodu;
         }
     }
 }

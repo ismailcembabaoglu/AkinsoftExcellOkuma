@@ -15,6 +15,7 @@ namespace AkinsoftExcellOkuma.Persistence.Extensions
         {
             services.AddScoped<IExcellImportService, ExcellImportService>();
             services.AddScoped<IPersonelService, PersonelService>();
+            services.AddScoped<IPuantajCetveliService, PuantajCetveliService>();
             return services;
         }
     }

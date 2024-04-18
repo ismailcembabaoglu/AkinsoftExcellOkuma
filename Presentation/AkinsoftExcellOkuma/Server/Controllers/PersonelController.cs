@@ -19,14 +19,14 @@ namespace AkinsoftExcellOkuma.Server.Controllers
         {
             personelService= _personelService;
         }
-        [HttpGet("Cars")]
+        [HttpGet("PersonelById/{Kodu}")]
         [AllowAnonymous]
-        public async Task<ServiceResponse<List<PersonelDTO>>> GetCars()
+        public async Task<ServiceResponse<long>> GetPersonelByIdKod(string Kodu)
         {
-            return new ServiceResponse<List<PersonelDTO>>()
+            return new ServiceResponse<long>()
             {
 
-                Value = await personelService.GetPersonels()
+                Value = await personelService.GetPersonelById(Kodu)
             };
         }
         [HttpGet("Personel")]

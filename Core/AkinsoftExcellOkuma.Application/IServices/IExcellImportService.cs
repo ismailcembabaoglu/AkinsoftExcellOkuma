@@ -9,7 +9,7 @@ namespace AkinsoftExcellOkuma.Application.IServices
 {
     public interface IExcellImportService
     {
-        Task<List<DayDTO>> GetExcellPuantajs(string PathName,DayIndexDTO dayIndex);
+        Task<List<DayDTO>> GetExcellPuantajs(DayIndexDTO dayIndex);
         List<TatilDTO> GetTatils(int year, int month);
       Task<List<TatilDTO>> GetCleanders(int year, int month);
     }

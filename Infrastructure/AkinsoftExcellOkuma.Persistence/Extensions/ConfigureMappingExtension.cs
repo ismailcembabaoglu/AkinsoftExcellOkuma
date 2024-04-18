@@ -28,6 +28,7 @@ namespace AkinsoftExcellOkuma.Persistence.Extensions
                 AllowNullCollections = true;
 
                 CreateMap<PersonelDTO, Personel>().ReverseMap();
+                CreateMap<PuantajCetveliDTO, PuantajCetveli>().ReverseMap();
 
 
             }
