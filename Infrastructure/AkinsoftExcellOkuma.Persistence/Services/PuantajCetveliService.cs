@@ -3,6 +3,7 @@ using AkinsoftExcellOkuma.Application.IServices;
 using AkinsoftExcellOkuma.Persistence.Contexts;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -29,10 +30,13 @@ namespace AkinsoftExcellOkuma.Persistence.Services
 
         public async Task<PuantajCetveliDTO> CreatePuantajCetveli(PuantajCetveliDTO PuantajCetveli)
         {
+            var blKod= context.Database.SqlQueryRaw<long>($"select  NEXT VALUE FOR  PUANTAJ_CETVELI_GEN");
             var dbPuantajCetveli = await context.PuantajCetvelis.Where(c => c.Blkodu == PuantajCetveli.Blkodu).FirstOrDefaultAsync();
-            if (dbPuantajCetveli != null)
+            if (dbPuantajCetveli != null )
                 throw new Exception("Bu Puantaj zaten ekli");
+          
             dbPuantajCetveli = mapper.Map<PuantajCetveli>(PuantajCetveli);
+            dbPuantajCetveli.Blkodu=blKod.ToList().FirstOrDefault();
             await context.PuantajCetvelis.AddAsync(dbPuantajCetveli);
             int result = await context.SaveChangesAsync();
 

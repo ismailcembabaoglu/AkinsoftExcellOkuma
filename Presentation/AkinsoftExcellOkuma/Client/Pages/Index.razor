@@ -327,13 +327,13 @@
             int gm = 0;
             int cl = 0;
             await upload.Upload();
-         
+
             dayDTO = await HttpClient.PostGetServiceResponseNullTokenAsync<List<DayDTO>, DayIndexDTO>("api/Puantaj/Puantajs", dayIndex, true);
             foreach (var day in dayDTO)
             {
-               
-              var  tarih = new DateTime(DateTime.Now.Year, day.AyKodu, 1);
-              var totaldays=day.HS+  day.GT + day.CL + day.UL + day.UZ + day.RP + day.YL + day.GM;
+                puantajCetveli = new();
+                var  tarih = new DateTime(DateTime.Now.Year, day.AyKodu, 1);
+                var totaldays=day.HS+  day.GT + day.CL + day.UL + day.UZ + day.RP + day.YL + day.GM;
                 if (totaldays <= tarih.AddMonths(1).AddDays(-1).Day)
                 {
                     hfTatil = await HttpClient.GetServiceResponseNullTokenAsync<List<TatilDTO>>("api/Puantaj/Tatils/" + DateTime.Now.Year.ToString() + "/" + day.AyKodu);
@@ -426,14 +426,17 @@
 
                     }
                 }
-              
+
 
                 puantajCetveliDTOs.Add(puantajCetveli);
                 puantajCetveli = await HttpClient.PostGetServiceResponseNullTokenAsync<PuantajCetveliDTO, PuantajCetveliDTO>("api/PuantajCetveli/Create", puantajCetveli, true);
 
             }
-            var ss = puantajCetveliDTOs.ToList();
+            puantajCetveli = new();
+            await upload.RemoveFile(dayIndex.PathName);
+            dayIndex.PathName = "";
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Başarılı", Detail = "işlem başarılı", Duration = 4000, CloseOnClick = true });
+            
         }
         catch (ApiException ex)
         {
