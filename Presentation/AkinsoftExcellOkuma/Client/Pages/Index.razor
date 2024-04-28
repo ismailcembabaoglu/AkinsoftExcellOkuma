@@ -6,260 +6,232 @@
 @using AkinsoftExcellOkuma.Client.Utils
 @using AkinsoftExcellOkuma.Domain.Enums
 @using Microsoft.AspNetCore.Components.Forms
+@if (isprogActive)
+{
+    <div class="col-12" style="position:fixed; z-index:99999; align-items:center;">
+        <RadzenStack JustifyContent="JustifyContent.Center" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+            <RadzenProgressBarCircular Style="color:darkslateblue" Size="ProgressBarCircularSize.Large" @bind-Value="@value" />
+        </RadzenStack>
+     
+    </div>
+}
+
 <div class="col-md-6 p-3">
-    <RadzenTextBox></RadzenTextBox>
+
+    
     <RadzenUpload @ref="upload" Accept=".xlsx" Auto="false" Multiple="false" Url="/api/Puantaj/GetPath" ChooseText="Excell Seç" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})"
                   Change=@(args => OnProgressChanged(args)) class="w-100" />
 
     <EditForm Model="@dayIndex" OnValidSubmit="up">
-        <RadzenColumn Size="12" Style="width:%60" SizeMD="6">
-            <RadzenStack>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="SicilNo" />
-                    </RadzenColumn>
+        <RadzenRow Gap="1rem">
+            <RadzenColumn Size="6" SizeMD="6">
+                <RadzenStack>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Sicil No">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.SicilNo" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="SicilNo">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.SicilNo" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="SicilNo">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="AyKodu" />
-                    </RadzenColumn>
+                    </RadzenFormField>
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown AllowVirtualization="true" AllowFiltering="true" @bind-Value="dayIndex.AyKodu" AllowClear="false" Data="@ColumnTypes" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="AyKodu">
-                        </RadzenDropDown>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Ay Kodu">
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="IsyeriKodu" />
-                    </RadzenColumn>
+                        <ChildContent>
+                            <RadzenDropDown AllowVirtualization="true" AllowFiltering="true" @bind-Value="dayIndex.AyKodu" AllowClear="false" Data="@ColumnTypes" TextProperty="Name" ValueProperty="Id" Name="AyKodu">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.IsyeriKodu" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="IsyeriKodu">
-                        </RadzenDropDown>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="İşyeri Kodu">
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="IsyeriAdi" />
-                    </RadzenColumn>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.IsyeriKodu" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="IsyeriKodu">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.IsyeriAdi" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="IsyeriAdi">
-                        </RadzenDropDown>
+                    </RadzenFormField>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="CL" />
-                    </RadzenColumn>
+                    <RadzenFormField AllowFloatingLabel="false" Text="İşyeri Adı">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.CL" AllowClear="false" Data="@ColumnTypes" Style="width: 50%;" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.IsyeriAdi" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="IsyeriAdi">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="HS" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Çalışılan Gün">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.HS" AllowClear="false" Data="@ColumnTypes" Style="width: 50%;" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.CL" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="GT" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Hafta Sonu">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.GT" AllowClear="false" Data="@ColumnTypes" Style="width: 50%;" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.HS" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="RP" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Genel Tatil">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.RP" AllowClear="false" Data="@ColumnTypes" Style="width: 50%;" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.GT" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="UL" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Raporlu">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.UL" AllowClear="false" Data="@ColumnTypes" Style="width: 50%;" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.RP" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="UZ" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Ücretli İzin">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.UZ" AllowClear="false" Data="@ColumnTypes" Style="width: 50%;" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.UL" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="YL" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Ücretsiz İzin">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.YL" AllowClear="false" Data="@ColumnTypes" Style="width: 50%;" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.UZ" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="GM" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Yıllık İzin">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.GM" AllowClear="false" Data="@ColumnTypes" Style="width: 50%;" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.YL" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="EksikGun" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                </RadzenStack>
+            </RadzenColumn>
+            <RadzenColumn Size="6" SizeMD="6">
+                <RadzenStack>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Gelmedi">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.EksikGun" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.GM" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="ToplamPrimGun" />
-                    </RadzenColumn>
+                    </RadzenFormField>
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.ToplamPrimGun" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Eksik Gün">
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="ToplamUcretGun" />
-                    </RadzenColumn>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.EksikGun" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.ToplamUcretGun" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Toplam Prim Günü">
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="MESAI_HFICI_PNC" />
-                    </RadzenColumn>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.ToplamPrimGun" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.MESAI_HFICI_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                    </RadzenFormField>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="MESAI_HFSN_PNC" />
-                    </RadzenColumn>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Toplam Ücret Günü">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.MESAI_HFSN_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.ToplamUcretGun" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="MESAI_BYRM_PNC" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Hafta İçi M.">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.MESAI_BYRM_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.MESAI_HFICI_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="MESAI_HFICI_GECE_PNC" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Hafta Sonu M.">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.MESAI_HFICI_GECE_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.MESAI_HFSN_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="MESAI_HFSN_GECE_PNC" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Bayram M.">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.MESAI_HFSN_GECE_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.MESAI_BYRM_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="MESAI_BYRM_GECE_PNC" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Hafta İçi Gece M.">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.MESAI_BYRM_GECE_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.MESAI_HFICI_GECE_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenRow AlignItems="AlignItems.Center">
-                    <RadzenColumn Size="12" SizeMD="4">
-                        <RadzenLabel Text="TOPLAM_UZAKTAN_CALISMA" />
-                    </RadzenColumn>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Hafta Sonu Gece M.">
 
-                    <RadzenColumn Size="12" SizeMD="8">
-                        <RadzenDropDown @bind-Value="dayIndex.TOPLAM_UZAKTAN_CALISMA" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" Style="width: 50%;" TextProperty="Name" ValueProperty="Id" Name="Id">
-                        </RadzenDropDown>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.MESAI_HFSN_GECE_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
 
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenButton ButtonType=ButtonType.Submit Text="Yükle" class="d-block mt-4" />
-            </RadzenStack>
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Bayram Gece M.">
 
-        </RadzenColumn>
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.MESAI_BYRM_GECE_PNC" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Toplam Uzaktan Ç.">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.TOPLAM_UZAKTAN_CALISMA" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+                </RadzenStack>
+            </RadzenColumn>
+        </RadzenRow>
+      @*   <RadzenRow Gap="1rem">
+
+            <RadzenColumn Size="12" SizeMD="12">
+                <RadzenStack Gap="1rem" JustifyContent="JustifyContent.Center">
+                    <RadzenProgressBar ProgressBarStyle="ProgressBarStyle.Primary" @bind-Value="@value" />
+                </RadzenStack>
+
+            </RadzenColumn>
+        </RadzenRow> *@
+        <RadzenRow Gap="1rem">
+
+            <RadzenColumn Size="12"   SizeMD="12">
+                <RadzenStack Gap="1rem" JustifyContent="JustifyContent.Center">
+                    <RadzenButton ButtonType=ButtonType.Submit Text="Yükle" Disabled="isActive" class="d-block mt-6" />
+                </RadzenStack>
+
+            </RadzenColumn>
+        </RadzenRow>
+
 
     </EditForm>
 </div>
@@ -275,7 +247,9 @@
     List<DayDTO> dayDTO = new List<DayDTO>();
     PuantajCetveliDTO puantajCetveli = new PuantajCetveliDTO();
     List<PuantajCetveliDTO> puantajCetveliDTOs = new List<PuantajCetveliDTO>();
-
+    bool isActive = false;
+    double value = 0;
+    bool isprogActive = false;
     protected override Task OnInitializedAsync()
     {
 
@@ -316,10 +290,17 @@
         }
 
     }
+    void test(double count)
+    {
+        value = value+count;
+        StateHasChanged();
+    }
     async void up()
     {
         try
         {
+            isprogActive = true;
+            isActive = true;
             int rp = 0;
             int ul = 0;
             int uz = 0;
@@ -329,11 +310,15 @@
             await upload.Upload();
 
             dayDTO = await HttpClient.PostGetServiceResponseNullTokenAsync<List<DayDTO>, DayIndexDTO>("api/Puantaj/Puantajs", dayIndex, true);
+            var dayDtoCount = dayDTO.Count();
+            var prose = Convert.ToDouble( 100) / Convert.ToDouble( dayDtoCount);
             foreach (var day in dayDTO)
             {
+
+
                 puantajCetveli = new();
-                var  tarih = new DateTime(DateTime.Now.Year, day.AyKodu, 1);
-                var totaldays=day.HS+  day.GT + day.CL + day.UL + day.UZ + day.RP + day.YL + day.GM;
+                var tarih = new DateTime(DateTime.Now.Year, day.AyKodu, 1);
+                var totaldays = day.HS + day.GT + day.CL + day.UL + day.UZ + day.RP + day.YL + day.GM;
                 if (totaldays <= tarih.AddMonths(1).AddDays(-1).Day)
                 {
                     hfTatil = await HttpClient.GetServiceResponseNullTokenAsync<List<TatilDTO>>("api/Puantaj/Tatils/" + DateTime.Now.Year.ToString() + "/" + day.AyKodu);
@@ -430,13 +415,16 @@
 
                 puantajCetveliDTOs.Add(puantajCetveli);
                 puantajCetveli = await HttpClient.PostGetServiceResponseNullTokenAsync<PuantajCetveliDTO, PuantajCetveliDTO>("api/PuantajCetveli/Create", puantajCetveli, true);
-
+                test(prose);
             }
+            isActive = false;
             puantajCetveli = new();
             await upload.RemoveFile(dayIndex.PathName);
             dayIndex.PathName = "";
+            isprogActive = false;
+            StateHasChanged();
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Başarılı", Detail = "işlem başarılı", Duration = 4000, CloseOnClick = true });
-            
+
         }
         catch (ApiException ex)
         {
