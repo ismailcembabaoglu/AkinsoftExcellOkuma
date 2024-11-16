@@ -39,5 +39,15 @@ namespace AkinsoftExcellOkuma.Server.Controllers
                 Value = await personelService.GetPersonel()
             };
         }
+        [HttpGet("GetPersonelById/{Blkodu}")]
+        [AllowAnonymous]
+        public async Task<ServiceResponse<PersonelDTO>> GetPersonelById(long Blkodu)
+        {
+            return new ServiceResponse<PersonelDTO>()
+            {
+
+                Value = await personelService.GetPersonelByBlKodu(Blkodu)
+            };
+        }
     }
 }

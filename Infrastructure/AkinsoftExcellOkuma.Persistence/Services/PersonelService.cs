@@ -31,6 +31,15 @@ namespace AkinsoftExcellOkuma.Persistence.Services
             return dbCarLocation;
         }
 
+        public async Task<PersonelDTO> GetPersonelByBlKodu(long BlKodu)
+        {
+            var dbPersonel = await context.Personels.AsNoTracking().ProjectTo<PersonelDTO>(mapper.ConfigurationProvider)
+                .Where(c => c.Blkodu == BlKodu).FirstOrDefaultAsync();
+            if (dbPersonel == null)
+                return new PersonelDTO();
+            return dbPersonel;
+        }
+
         public async Task<long> GetPersonelById(string Kodu)
         {
             var dbCarLocation = await context.Personels.Where(c=>c.Kodu==Kodu).FirstOrDefaultAsync() ;

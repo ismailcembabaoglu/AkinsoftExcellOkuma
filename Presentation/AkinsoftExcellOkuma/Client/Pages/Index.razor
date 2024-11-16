@@ -292,6 +292,10 @@
     }
     void test(double count)
     {
+        if (value==100)
+        {
+            value = 0;
+        }
         value = value+count;
         StateHasChanged();
     }

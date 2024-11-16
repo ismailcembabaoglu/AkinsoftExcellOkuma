@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkinsoftExcellOkuma.Client"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkinsoftExcellOkuma.Shared", "Presentation\AkinsoftExcellOkuma\Shared\AkinsoftExcellOkuma.Shared.csproj", "{BCFFEFD6-5B2C-47E8-B4C5-C8CC6F59938A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "Presentation\test\test.csproj", "{E677A241-326C-4934-A683-A97CE4C975D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "Presentation\test\test.csproj", "{E677A241-326C-4934-A683-A97CE4C975D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

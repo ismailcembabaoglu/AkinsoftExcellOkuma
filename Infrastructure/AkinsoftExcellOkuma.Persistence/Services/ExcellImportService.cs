@@ -47,7 +47,7 @@ namespace AkinsoftExcellOkuma.Persistence.Services
         public async  Task<List<DayDTO>> GetExcellPuantajs(DayIndexDTO dayIndex)
         {
             List<DayDTO> list = new List<DayDTO>();
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(),$"uploads/{dayIndex.PathName}");
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(),$"uploads\\{dayIndex.PathName}");
             FileInfo fileInfo = new FileInfo(filePath);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
@@ -81,6 +81,39 @@ namespace AkinsoftExcellOkuma.Persistence.Services
                     excellDTO.MESAI_HFSN_GECE_PNC = Convert.ToDouble(worksheet.Cells[row, dayIndex.MESAI_HFSN_GECE_PNC]?.Value);
                     excellDTO.MESAI_BYRM_GECE_PNC = Convert.ToDouble(worksheet.Cells[row, dayIndex.MESAI_BYRM_GECE_PNC]?.Value);
                     excellDTO.TOPLAM_UZAKTAN_CALISMA = ((short)Convert.ToInt32(worksheet.Cells[row, dayIndex.TOPLAM_UZAKTAN_CALISMA]?.Value));
+                    list.Add(excellDTO);
+                }
+            }
+            return list;
+        }
+        public async Task<List<BordroDTO>> GetExcellBordros(BordroIndexDTO dayIndex)
+        {
+            List<BordroDTO> list = new List<BordroDTO>();
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), $"uploads\\{dayIndex.PathName}");
+            FileInfo fileInfo = new FileInfo(filePath);
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
+            {
+                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.FirstOrDefault();
+                int totalCollumn = worksheet.Dimension.End.Column;
+                int totalRow = worksheet.Dimension.End.Row;
+                for (int row = 2; row <= totalRow; row++)
+                {
+                    BordroDTO excellDTO = new BordroDTO();
+
+                    excellDTO.SicilNo = worksheet.Cells[row, dayIndex.SicilNo]?.Value?.ToString();
+                    excellDTO.PrimKodu = worksheet.Cells[row, dayIndex.PrimKodu]?.Value?.ToString();
+                    excellDTO.IzinKodu = worksheet.Cells[row, dayIndex.IzinKodu]?.Value?.ToString();
+                    excellDTO.KresKodu = worksheet.Cells[row, dayIndex.KresKodu]?.Value?.ToString();
+                    excellDTO.AyniKodu = worksheet.Cells[row, dayIndex.AyniKodu]?.Value?.ToString();
+                    excellDTO.PuantajTarihi = worksheet.Cells[row, dayIndex.PuantajTarihi]?.Value?.ToString();
+                    excellDTO.PuantajAyi = Convert.ToInt32(worksheet.Cells[row, dayIndex.PuantajAyi]?.Value);
+                    excellDTO.PuantajYili = Convert.ToInt32(worksheet.Cells[row, dayIndex.PuantajYili]?.Value);
+                    excellDTO.AvansTutari = Convert.ToDouble(worksheet.Cells[row, dayIndex.AvansTutari]?.Value);
+                    excellDTO.PrimTutari = Convert.ToDouble(worksheet.Cells[row, dayIndex.PrimTutari]?.Value);
+                    excellDTO.IzinTutari = Convert.ToDouble(worksheet.Cells[row, dayIndex.IzinTutari]?.Value);
+                    excellDTO.KresTutari = Convert.ToDouble(worksheet.Cells[row, dayIndex.KresTutari]?.Value);
+                    excellDTO.AyniTutari = Convert.ToDouble(worksheet.Cells[row, dayIndex.AyniTutari]?.Value);
                     list.Add(excellDTO);
                 }
             }

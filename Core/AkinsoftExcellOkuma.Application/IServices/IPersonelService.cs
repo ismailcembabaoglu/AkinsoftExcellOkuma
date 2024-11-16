@@ -11,5 +11,6 @@ namespace AkinsoftExcellOkuma.Application.IServices
     {
         public Task<long> GetPersonelById(string Kodu);
         public Task<PersonelDTO> GetPersonel();
+        public Task<PersonelDTO> GetPersonelByBlKodu(long BlKodu);
     }
 }

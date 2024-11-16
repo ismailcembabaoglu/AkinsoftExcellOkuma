@@ -10,7 +10,8 @@ namespace AkinsoftExcellOkuma.Application.IServices
     public interface IExcellImportService
     {
         Task<List<DayDTO>> GetExcellPuantajs(DayIndexDTO dayIndex);
+        Task<List<BordroDTO>> GetExcellBordros(BordroIndexDTO dayIndex);
         List<TatilDTO> GetTatils(int year, int month);
-      Task<List<TatilDTO>> GetCleanders(int year, int month);
+        Task<List<TatilDTO>> GetCleanders(int year, int month);
     }
 }

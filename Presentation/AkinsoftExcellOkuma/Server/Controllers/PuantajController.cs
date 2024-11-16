@@ -50,6 +50,16 @@ namespace AkinsoftExcellOkuma.Server.Controllers
                 Value = await excellImportService.GetExcellPuantajs(dayIndex)
             };
         }
+        [HttpPost("Bordros")]
+        [AllowAnonymous]
+        public async Task<ServiceResponse<List<BordroDTO>>> GetBordros(BordroIndexDTO bordroIndex)
+        {
+            return new ServiceResponse<List<BordroDTO>>()
+            {
+
+                Value = await excellImportService.GetExcellBordros(bordroIndex)
+            };
+        }
         [HttpGet("Tatils/{Year}/{Month}")]
         [AllowAnonymous]
         public  ServiceResponse<List<TatilDTO>> GetTatils(int Year, int Month)

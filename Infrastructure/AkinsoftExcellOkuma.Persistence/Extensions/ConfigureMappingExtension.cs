@@ -29,6 +29,9 @@ namespace AkinsoftExcellOkuma.Persistence.Extensions
 
                 CreateMap<PersonelDTO, Personel>().ReverseMap();
                 CreateMap<PuantajCetveliDTO, PuantajCetveli>().ReverseMap();
+                CreateMap<PersonelAvanDTO, PersonelAvan>().ReverseMap();
+                CreateMap<PersonelYardimDTO, PersonelYardim>().ReverseMap();
+                CreateMap<PersonelKesintiDTO, PersonelKesinti>().ReverseMap();
 
 
             }

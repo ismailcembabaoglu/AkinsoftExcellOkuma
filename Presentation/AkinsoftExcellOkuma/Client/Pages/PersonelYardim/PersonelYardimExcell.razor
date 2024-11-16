@@ -1,0 +1,292 @@
+﻿@page "/yardim"
+@inject NotificationService NotificationService
+@using AkinsoftExcellOkuma.Application.CustomExceptions
+@using AkinsoftExcellOkuma.Application.DTOs
+@using AkinsoftExcellOkuma.Application.DTOs.IKDTOs
+@using AkinsoftExcellOkuma.Client.Utils
+@using AkinsoftExcellOkuma.Domain.Enums
+@using Microsoft.AspNetCore.Components.Forms
+@if (isprogActive)
+{
+    <div class="col-12" style="position:fixed; z-index:99999; align-items:center;">
+        <RadzenStack JustifyContent="JustifyContent.Center" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+            <RadzenProgressBarCircular Style="color:darkslateblue" Size="ProgressBarCircularSize.Large" @bind-Value="@value" />
+        </RadzenStack>
+
+    </div>
+}
+
+<div class="col-md-6 p-3">
+
+
+    <RadzenUpload @ref="upload" Accept=".xlsx" Auto="false" Multiple="false" Url="/api/Puantaj/GetPath" ChooseText="Excell Seç" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "select file" }})"
+                  Change=@(args => OnProgressChanged(args)) class="w-100" />
+
+    <EditForm Model="@dayIndex" OnValidSubmit="up">
+        <RadzenRow Gap="1rem">
+            <RadzenColumn Size="6" SizeMD="6">
+                <RadzenStack>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Sicil No">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.SicilNo" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="SicilNo">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+
+                    <RadzenFormField AllowFloatingLabel="false" Text="Prim Yardım Kodu">
+
+                        <ChildContent>
+                            <RadzenDropDown AllowVirtualization="true" AllowFiltering="true" @bind-Value="dayIndex.PrimKodu" AllowClear="false" Data="@ColumnTypes" TextProperty="Name" ValueProperty="Id" Name="PrimKodu">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Prim Yardım Tutarı">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.PrimTutari" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="PrimTutari">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+
+                    <RadzenFormField AllowFloatingLabel="false" Text="İzin Yardım Kodu">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.IzinKodu" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="IzinKodu">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="İzin Yardım Tutarı">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.IzinTutari" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="IzinTutari">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Kreş Yardım Kodu">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.KresKodu" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="KresKodu">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Kreş Yardım Tutarı">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.KresTutari" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="KresTutari">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+             
+                    
+                </RadzenStack>
+            </RadzenColumn>
+            <RadzenColumn Size="6" SizeMD="6">
+                <RadzenStack>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Puantaj Yılı">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.PuantajYili" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="PuantajYili">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+
+                    <RadzenFormField AllowFloatingLabel="false" Text="Avans Tutarı">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.AvansTutari" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="AvansTutari">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Ayni Yardım Tutarı">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.AyniTutari" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="AyniTutari">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Puantaj Tarihi">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.PuantajTarihi" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="PuantajTarihi">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Puantaj Ayı">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.PuantajAyi" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="Id">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+                    <RadzenFormField AllowFloatingLabel="false" Text="Ayni Yardım Kodu">
+
+                        <ChildContent>
+                            <RadzenDropDown @bind-Value="dayIndex.AyniKodu" AllowClear="false" Data="@ColumnTypes" AllowVirtualization="true" AllowFiltering="true" TextProperty="Name" ValueProperty="Id" Name="AyniKodu">
+                            </RadzenDropDown>
+                        </ChildContent>
+
+                    </RadzenFormField>
+                </RadzenStack>
+            </RadzenColumn>
+        </RadzenRow>
+        @*   <RadzenRow Gap="1rem">
+
+        <RadzenColumn Size="12" SizeMD="12">
+        <RadzenStack Gap="1rem" JustifyContent="JustifyContent.Center">
+        <RadzenProgressBar ProgressBarStyle="ProgressBarStyle.Primary" @bind-Value="@value" />
+        </RadzenStack>
+
+        </RadzenColumn>
+        </RadzenRow> *@
+        <RadzenRow Gap="1rem">
+
+            <RadzenColumn Size="12" SizeMD="12">
+                <RadzenStack Gap="1rem" JustifyContent="JustifyContent.Center">
+                    <RadzenButton ButtonType=ButtonType.Submit Text="Yükle" Disabled="isActive" class="d-block mt-6" />
+                </RadzenStack>
+
+            </RadzenColumn>
+        </RadzenRow>
+
+
+    </EditForm>
+</div>
+@code {
+    [Inject]
+    public HttpClient HttpClient { get; set; }
+    List<EnumToName> ColumnTypes = new List<EnumToName>();
+    RadzenUpload upload;
+    BordroIndexDTO dayIndex = new BordroIndexDTO();
+    PersonelDTO personel = new PersonelDTO();
+    List<BordroDTO> dayDTO = new List<BordroDTO>();
+    PersonelYardimDTO personelYardim = new PersonelYardimDTO();
+    PersonelAvanDTO personelAvanDTO = new PersonelAvanDTO();
+
+    bool isActive = false;
+    double value = 0;
+    bool isprogActive = false;
+    protected override Task OnInitializedAsync()
+    {
+
+        var ss = EnumHelper.GetEnumDescriptionAndValues<ColumnType>();
+        foreach (var item in ss)
+        {
+            ColumnTypes.Add(new EnumToName { Name = item.Key, Id = item.Value });
+        }
+        dayIndex.SicilNo = 1;
+        dayIndex.PrimKodu = 2;
+        dayIndex.PrimTutari = 3;
+        dayIndex.IzinKodu = 4;
+        dayIndex.IzinTutari = 5;
+        dayIndex.KresKodu = 6;
+        dayIndex.KresTutari = 7;
+        dayIndex.AyniKodu = 8;
+        dayIndex.AyniTutari = 9;
+        dayIndex.PuantajTarihi = 10;
+        dayIndex.PuantajAyi = 11;
+        dayIndex.PuantajYili = 12;
+        dayIndex.AvansTutari = 13;
+        return base.OnInitializedAsync();
+    }
+    void OnProgressChanged(UploadChangeEventArgs args)
+    {
+        foreach (var item in args.Files)
+        {
+            dayIndex.PathName = item.Name;
+        }
+
+    }
+    void test(double count)
+    {
+        if (value == 100)
+        {
+            value = 0;
+        }
+        value = value + count;
+        StateHasChanged();
+    }
+    async void up()
+    {
+        try
+        {
+            isprogActive = true;
+            isActive = true;
+            await upload.Upload();
+
+            dayDTO = await HttpClient.PostGetServiceResponseNullTokenAsync<List<BordroDTO>, BordroIndexDTO>("api/Puantaj/Bordros", dayIndex, true);
+            var dayDtoCount = dayDTO.Count();
+            var prose = Convert.ToDouble(100) / Convert.ToDouble(dayDtoCount);
+            foreach (var day in dayDTO)
+            {
+
+                long persBlKodu = await HttpClient.GetServiceResponseNullTokenAsync<long>("api/Personel/PersonelById/" + day.SicilNo);
+                PersonelYardimDTO primYardim = new();
+                primYardim = await HttpClient.GetServiceResponseNullTokenAsync<PersonelYardimDTO>($"api/PersonelYardim/PersonelYardimByBlKodu/{persBlKodu}/{day.PrimKodu}");
+                primYardim.Tutari = day.PrimTutari;
+                personelYardim = new();
+                personelYardim = await HttpClient.PostGetServiceResponseNullTokenAsync<PersonelYardimDTO, PersonelYardimDTO>("api/PersonelYardim/Update", primYardim, true);
+
+                primYardim = new();
+                primYardim = await HttpClient.GetServiceResponseNullTokenAsync<PersonelYardimDTO>($"api/PersonelYardim/PersonelYardimByBlKodu/{persBlKodu}/{day.IzinKodu}");
+                primYardim.Tutari = day.IzinTutari;
+                personelYardim = new();
+                personelYardim = await HttpClient.PostGetServiceResponseNullTokenAsync<PersonelYardimDTO, PersonelYardimDTO>("api/PersonelYardim/Update", primYardim, true);
+
+                primYardim = new();
+                primYardim = await HttpClient.GetServiceResponseNullTokenAsync<PersonelYardimDTO>($"api/PersonelYardim/PersonelYardimByBlKodu/{persBlKodu}/{day.KresKodu}");
+                primYardim.Tutari = day.KresTutari;
+                personelYardim = new();
+                personelYardim = await HttpClient.PostGetServiceResponseNullTokenAsync<PersonelYardimDTO, PersonelYardimDTO>("api/PersonelYardim/Update", primYardim, true);
+
+                primYardim = new();
+                primYardim = await HttpClient.GetServiceResponseNullTokenAsync<PersonelYardimDTO>($"api/PersonelYardim/PersonelYardimByBlKodu/{persBlKodu}/{day.AyniKodu}");
+                primYardim.Tutari = day.AyniTutari;
+                personelYardim = new();
+                personelYardim = await HttpClient.PostGetServiceResponseNullTokenAsync<PersonelYardimDTO, PersonelYardimDTO>("api/PersonelYardim/Update", primYardim, true);
+
+                PersonelAvanDTO personelAvan = new PersonelAvanDTO();
+                personelAvan.Blmaskodu = persBlKodu;
+                personelAvan.PuantajYili =(short) day.PuantajYili;
+                personelAvan.PuantajAyi = (short)day.PuantajAyi;
+                personelAvan.Tarihi = DateTime.ParseExact(day.PuantajTarihi,"dd.MM.yyyy HH:mm:ss",null);
+                personelAvan.Tutari = day.AvansTutari;
+                personelAvanDTO = await HttpClient.PostGetServiceResponseNullTokenAsync<PersonelAvanDTO, PersonelAvanDTO>("api/PersonelAvan/Create", personelAvan, true);
+                test(prose);
+            }
+            isActive = false;
+            personelYardim = new();
+            personelAvanDTO = new();
+            await upload.RemoveFile(dayIndex.PathName);
+            dayIndex.PathName = "";
+            isprogActive = false;
+            StateHasChanged();
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Başarılı", Detail = "işlem başarılı", Duration = 4000, CloseOnClick = true });
+
+        }
+        catch (ApiException ex)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Başarısız Api Exception", Detail = $"{ex.Message}", Duration = 10000, CloseOnClick = true });
+        }
+        catch (Exception ex)
+        {
+
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Başarısız Exception", Detail = $"{ex.Message}", Duration = 10000, CloseOnClick = true });
+        }
+
+
+    }
+
+}
