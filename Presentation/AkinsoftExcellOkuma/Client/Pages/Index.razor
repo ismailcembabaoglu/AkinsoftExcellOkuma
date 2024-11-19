@@ -329,6 +329,7 @@
                     bayramTatil = await HttpClient.GetServiceResponseNullTokenAsync<List<TatilDTO>>("api/Puantaj/Cleander/" + DateTime.Now.Year.ToString() + "/" + day.AyKodu);
                     puantajCetveli = new();
                     long persBlKodu = await HttpClient.GetServiceResponseNullTokenAsync<long>("api/Personel/PersonelById/" + day.SicilNo);
+          
                     puantajCetveli.Blperskodu = persBlKodu;
                     puantajCetveli.Aykodu = day.AyKodu;
                     puantajCetveli.IsyeriKodu = day.IsyeriKodu;
@@ -414,12 +415,21 @@
                         }
 
                     }
+
+                    puantajCetveliDTOs.Add(puantajCetveli);
+                    puantajCetveli = await HttpClient.PostGetServiceResponseNullTokenAsync<PuantajCetveliDTO, PuantajCetveliDTO>("api/PuantajCetveli/Create", puantajCetveli, true);
+                    var personel = await HttpClient.GetServiceResponseNullTokenAsync<PersonelDTO>("api/Personel/GetPersonelById/" + persBlKodu);
+                    var maasKesinti = ((personel.Ucreti / 225) * day.GM);
+                    PersonelKesintiDTO personelKesintiDTO = new PersonelKesintiDTO();
+                    personelKesintiDTO.Tutari = maasKesinti;
+                    personelKesintiDTO.Kodu = "MK01";
+                    personelKesintiDTO.Blpersonelkodu = persBlKodu;
+                    personelKesintiDTO.Kesinti = "Maaş Kesintisi";
+                    personelKesintiDTO.NetMaasiEtkilesin = 1;
+                    personelKesintiDTO.GvIndirimiUygula = 0;
+                    var personelKesinti = await HttpClient.PostGetServiceResponseNullTokenAsync<PersonelKesintiDTO, PersonelKesintiDTO>("api/Personel/CreateOrUpdatePersonelKesinti", personelKesintiDTO, true);
+                    test(prose);
                 }
-
-
-                puantajCetveliDTOs.Add(puantajCetveli);
-                puantajCetveli = await HttpClient.PostGetServiceResponseNullTokenAsync<PuantajCetveliDTO, PuantajCetveliDTO>("api/PuantajCetveli/Create", puantajCetveli, true);
-                test(prose);
             }
             isActive = false;
             puantajCetveli = new();

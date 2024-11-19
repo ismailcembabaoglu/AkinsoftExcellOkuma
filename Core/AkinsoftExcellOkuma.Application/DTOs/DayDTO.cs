@@ -19,7 +19,7 @@ namespace AkinsoftExcellOkuma.Application.DTOs
         public int UL { get; set; }
         public int UZ { get; set; }
         public int YL { get; set; }
-        public int GM { get; set; }
+        public double GM { get; set; }
         public string EksikGun { get; set; }
         public short ToplamPrimGun { get; set; }
         public short ToplamUcretGun { get; set; }

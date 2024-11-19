@@ -25,6 +25,24 @@ namespace AkinsoftExcellOkuma.Persistence.Services
             context = _context;
         }
 
+        public async Task<PersonelKesintiDTO> CreateOrUpdateKesinti(PersonelKesintiDTO personelKesinti)
+        {
+            var dbPersonelKesinti = await context.PersonelKesintis.AsNoTracking().Where(c=>c.Blpersonelkodu==personelKesinti.Blpersonelkodu && c.Kodu==personelKesinti.Kodu).FirstOrDefaultAsync();
+            if (dbPersonelKesinti == null)
+            {
+                personelKesinti.Blkodu = context.Database.SqlQueryRaw<long>($"select  NEXT VALUE FOR  PERSONEL_KESINTI_GEN").ToList().FirstOrDefault();
+              var pers=  mapper.Map<PersonelKesinti>(personelKesinti);
+               await context.AddAsync(pers);
+                await context.SaveChangesAsync();
+                return personelKesinti;
+            }
+            personelKesinti.Blkodu=dbPersonelKesinti.Blkodu;
+            mapper.Map(personelKesinti, dbPersonelKesinti);
+            context.Update(dbPersonelKesinti);
+            await context.SaveChangesAsync();
+       return mapper.Map<PersonelKesintiDTO>(dbPersonelKesinti);
+        }
+
         public async Task<PersonelDTO> GetPersonel()
         {
             var dbCarLocation = await context.Personels.ProjectTo<PersonelDTO>(mapper.ConfigurationProvider).FirstOrDefaultAsync();

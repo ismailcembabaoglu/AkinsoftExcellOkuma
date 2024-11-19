@@ -70,7 +70,7 @@ namespace AkinsoftExcellOkuma.Persistence.Services
                     excellDTO.UL = Convert.ToInt32(worksheet.Cells[row, dayIndex.UL]?.Value);
                     excellDTO.UZ = Convert.ToInt32(worksheet.Cells[row, dayIndex.UZ]?.Value);
                     excellDTO.YL = Convert.ToInt32(worksheet.Cells[row, dayIndex.YL]?.Value);
-                    excellDTO.GM = Convert.ToInt32(worksheet.Cells[row, dayIndex.GM]?.Value);
+                    excellDTO.GM = Convert.ToDouble(worksheet.Cells[row, dayIndex.GM]?.Value) ;
                     excellDTO.EksikGun = worksheet.Cells[row, dayIndex.EksikGun]?.Value?.ToString();
                     excellDTO.ToplamPrimGun = ((short)Convert.ToInt32(worksheet.Cells[row, dayIndex.ToplamPrimGun]?.Value));
                     excellDTO.ToplamUcretGun = ((short)Convert.ToInt32(worksheet.Cells[row, dayIndex.ToplamUcretGun]?.Value));

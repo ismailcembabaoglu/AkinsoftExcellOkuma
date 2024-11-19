@@ -2,6 +2,7 @@
 using AkinsoftExcellOkuma.Application.DTOs.IKDTOs;
 using AkinsoftExcellOkuma.Application.IServices;
 using AkinsoftExcellOkuma.Application.ResponseModels;
+using AkinsoftExcellOkuma.Persistence.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +28,15 @@ namespace AkinsoftExcellOkuma.Server.Controllers
             {
 
                 Value = await personelService.GetPersonelById(Kodu)
+            };
+        }
+        [HttpPost("CreateOrUpdatePersonelKesinti")]
+        [AllowAnonymous]
+        public async Task<ServiceResponse<PersonelKesintiDTO>> CreateOrUpdatePersonelKesinti([FromBody] PersonelKesintiDTO personelKesinti)
+        {
+            return new ServiceResponse<PersonelKesintiDTO>()
+            {
+                Value = await personelService.CreateOrUpdateKesinti(personelKesinti)
             };
         }
         [HttpGet("Personel")]
